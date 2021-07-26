@@ -34,7 +34,7 @@ class Scratch3Roomlatch {
                     arguments: {
                         URL: {
                             type: ArgumentType.STRING,
-                            defaultValue: "localhost"
+                            defaultValue: "http://raspberrypi.local"
                         }
                     }
                 },
@@ -77,6 +77,11 @@ class Scratch3Roomlatch {
                     text: 'ホームに戻る'
                 },
                 {
+                    opcode: 'end',
+                    blockType: BlockType.COMMAND,
+                    text: '終了',
+                },
+                {
                     opcode: 'getResult',
                     blockType: BlockType.REPORTER,
                     text: '結果',
@@ -103,28 +108,34 @@ class Scratch3Roomlatch {
 
     goStraight(args) {
         const seconds = Cast.toNumber(args.SECONDS);
-        const code    = this._url + "gostraight=" + seconds;
-        var pr = fetch(code).then(res => res.text()).then(body => this._result = body);
+        const code = this._url + "/API/cmdAdd.php?cmd=straight&param=" + seconds;
+        let pr = fetch(code).then(res => res.text()).then(body => this._result = body);
         return pr;
     }
 
     turnLeft(args) {
         const angle = Cast.toNumber(args.ANGLE);
-        const code  = this._url + "turnleft=" + angle;
-        var pr = fetch(code).then(res => res.text()).then(body => this._result = body);
+        const code  = this._url + "/API/cmdAdd.php?cmd=left&param=" + angle;
+        let pr = fetch(code).then(res => res.text()).then(body => this._result = body);
         return pr;
     }
 
     turnRight(args) {
         const angle = Cast.toNumber(args.ANGLE);
-        const code  = this._url + "turnright=" + angle;
-        var pr = fetch(code).then(res => res.text()).then(body => this._result = body);
+        const code  = this._url + "/API/cmdAdd.php?cmd=right&param=" + angle;
+        let pr = fetch(code).then(res => res.text()).then(body => this._result = body);
         return pr;
     }
 
     returnHome() {
-        const code    = this._url + "gohome";
-        var pr = fetch(code).then(res => res.text()).then(body => this._result = body);
+        const code    = this._url + "/API/cmdAdd.php?cmd=gohome&param=0";
+        let pr = fetch(code).then(res => res.text()).then(body => this._result = body);
+        return pr;
+    }
+
+    end() {
+        const code    = this._url + "/API/cmdAdd.php?cmd=END&param=0";
+        let pr = fetch(code).then(res => res.text()).then(body => this._result = body);
         return pr;
     }
 }

@@ -17,24 +17,13 @@ class Scratch3Roomlatch {
             name: 'Roomlatch コントロール',
             blocks: [
                 {
-                    opcode: 'writeLog',
-                    blockType: BlockType.COMMAND,
-                    text: 'ログ [TEXT]',
-                    arguments: {
-                        TEXT: {
-                            type: ArgumentType.STRING,
-                            defaultValue: "Hello Roomba!"
-                        }
-                    }
-                },
-                {
                     opcode: 'setUrl',
                     blockType: BlockType.COMMAND,
                     text: '送信先を[URL]に設定',
                     arguments: {
                         URL: {
                             type: ArgumentType.STRING,
-                            defaultValue: "http://raspberrypi.local"
+                            defaultValue: "http://roomba-controller1.local"
                         }
                     }
                 },
@@ -80,11 +69,6 @@ class Scratch3Roomlatch {
                     opcode: 'end',
                     blockType: BlockType.COMMAND,
                     text: '終了',
-                },
-                {
-                    opcode: 'getResult',
-                    blockType: BlockType.REPORTER,
-                    text: '結果',
                 }
             ],
             menus: {
